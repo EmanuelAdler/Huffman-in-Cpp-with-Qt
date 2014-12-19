@@ -18,14 +18,11 @@ TEMPLATE = app
 SOURCES += \
     main.cpp \
     HTree.cpp \
-    Huffman.cpp \
-    gui.cpp
+    Huffman.cpp
 
 HEADERS += \ 
     Node.h \
     HTree.h \
-    Huffman.h \
-    gui.h
+    Huffman.h
 
-FORMS += \
-    gui.ui
+FORMS +=

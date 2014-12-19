@@ -44,8 +44,10 @@ QByteArray Huffman::fileCodif(QByteArray data, QVector<QByteArray> codes){
 }
 
 void Huffman::generateFileCod(QByteArray &codification, QByteArray &fileData, QByteArray &treeSize){
-    int lixo = 8 - codification.size()%8; // tamanho do lixo da codificação
-    for(int i = 0, k = 2, j = 0, g = 0; i < 16; ++i, --k)
+	int lixo=0; // tamanho do lixo da codificação
+	if(codification.size()%8 != 0)
+		lixo = 8 - codification.size()%8; 
+	for(int i = 0, k = 2, j = 0, g = 0; i < 16; ++i, --k)
     {
         if(i <= 2)
         {
@@ -142,8 +144,8 @@ void Huffman::comprimir(QString string, QString string2)
         linha.clear();
         generateFileCod(codif, linha, xcv);
         linha.append(string.size()).append(string).append(xcv).append(aux);
-        file.close(); // já fiz oq tinha que fazer no arquivo original, então eu o fecho.
-        QFile newfile(string2); // criação do novo arquivo que é o original comprimido.
+        file.close(); // Fecha o arquivo original
+        QFile newfile(string2); // Criação do arquivo comprimido
         if(!newfile.open(QIODevice::WriteOnly))
             {
                 qDebug() << "Ocorreu um erro ao abrir o arquivo da compressão.";
@@ -153,34 +155,6 @@ void Huffman::comprimir(QString string, QString string2)
         newfile.close(); // compressão concluída.
         qDebug() << "Arquivo comprimido com êxito.";
 }
-
-
-
-
-
-
-
-
-    // compressão acima
-
-
-
-
-
-
-
-// ------------------------------------------------------------------------------------------
-
-
-
-
-
-
-// Descompressão abaixo
-
-
-
-
 
 void Huffman::setBitArray(QBitArray &tamanho, QByteArray &codif)
 {
@@ -276,8 +250,8 @@ void Huffman::createNewFile(QString &nome, tree &arvore, Node *node, QBitArray &
             node = arvore.getTree();
         }
     }
-    huff.write(finalCode); // O arquivo descompresso agora é igual ao original
-    huff.close(); // fecho o arquivo descomprimido
+    huff.write(finalCode); // Escreve no novo arquivo os dados
+    huff.close(); // Fecha o arquivo
 }
 void Huffman::descomprimir(QString string)
 {
@@ -287,7 +261,7 @@ void Huffman::descomprimir(QString string)
         exit(1);
     }
     QByteArray compCod, treeCod, finalCode;
-    compCod = fil.readAll(); // necessário para saber os dados originais do arquivo comprimido
+    compCod = fil.readAll(); // Pegar os dados originais do arquivo comprimido
     QBitArray tam(24);//bit array com o tamanho do cabeçalho
     int trash=0, treeSize=0, nameSize=0, i, k;
     setBitArray(tam, compCod);

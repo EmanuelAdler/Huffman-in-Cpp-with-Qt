@@ -1,7 +1,7 @@
 #include <QCoreApplication>
-#include <QApplication>
+
 #include "Huffman.h"
-#include "gui.h"
+
 
 void help()
 {
@@ -45,17 +45,10 @@ int main(int argc, char *argv[])
         }
         else
         {
-            if(com.compare("-gui")){
-                QCoreApplication a(argc, argv);
-                Gui w;
-                w.show();
-                return a.exec();
-            }
-            else{
-                qDebug() << "O argumento inserido não é reconhecido pelo programa.";
-                help();
-                exit(1);
-            }
+            qDebug() << "O argumento inserido não é reconhecido pelo programa.";
+            help();
+            exit(1);
+
         }
     }
     else if(argc == 2)
