@@ -107,7 +107,7 @@ void Huffman::comprimir(QString string, QString string2)
         int i, j;
         QList<Node*> lista; // vetor de nós.
         Node *node;
-        for(j = 0; j < 256; ++j){ // monta o nosso vetor
+        for(j = 0; j < 256; ++j){
             if(count[j])
             {
                 node = new Node((unsigned char)j, 0, 0, count[j]);
@@ -115,7 +115,7 @@ void Huffman::comprimir(QString string, QString string2)
             }
         }
         tree arvore;
-        while(lista.size() != 1) // monta a árvore
+        while(lista.size() != 1) // Monta a árvore
         {
             qSort(lista.begin(), lista.end(), lessthan);
             node = new Node(0, lista[0], lista[1], lista[0]->frequency + lista[1]->frequency);
@@ -123,10 +123,10 @@ void Huffman::comprimir(QString string, QString string2)
             lista.removeAt(0);
             lista.append(node);
         }
-        arvore.append(lista.at(0)); // aqui o nó principal vira a raiz da árvore
+        arvore.append(lista.at(0)); 
         QVector<QByteArray> cod(256);
         QByteArray xcv = arvore.treeRepresentation(cod);
-        QByteArray codif; // será o bytearray com a codificação do arquivo
+        QByteArray codif; // bytearray com a codificação do arquivo
         QByteArray aux;
         int k;
         codif= fileCodif(linha, cod);
@@ -151,8 +151,8 @@ void Huffman::comprimir(QString string, QString string2)
                 qDebug() << "Ocorreu um erro ao abrir o arquivo da compressão.";
                 exit(1);
             }
-        newfile.write(linha); // nesta linha ocorre a compressão.
-        newfile.close(); // compressão concluída.
+        newfile.write(linha);
+        newfile.close(); // Compressão concluída.
         qDebug() << "Arquivo comprimido com êxito.";
 }
 
@@ -235,7 +235,7 @@ void Huffman::createNewFile(QString &nome, tree &arvore, Node *node, QBitArray &
         exit(1);
     };
 
-    for(node = arvore.getTree(), i = 0; i < bit.size() - trash; ++i) // aqui eu escrevo o código do arquivo para a descompressão
+    for(node = arvore.getTree(), i = 0; i < bit.size() - trash; ++i) //Escreve o código do arquivo para a descompressão
     {
         if(node->left && node->right)
         {
