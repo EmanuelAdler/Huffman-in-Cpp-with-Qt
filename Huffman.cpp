@@ -105,7 +105,7 @@ void Huffman::comprimir(QString string, QString string2)
                 ++count[(unsigned char) line.at(i)];
         }
         int i, j;
-        QList<Node*> lista; // vetor de nós.
+        QList<Node*> lista; // lista de nós
         Node *node;
         for(j = 0; j < 256; ++j){
             if(count[j])
